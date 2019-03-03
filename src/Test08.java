@@ -1,69 +1,117 @@
 /**
- * Author: Íõ¿¡³¬
+ * Author: ç‹ä¿Šè¶…
  * Date: 2015-04-22
  * Time: 10:57
  * Declaration: All Rights Reserved !!!
  */
 public class Test08 {
+    /**
+     * 1.æš´åŠ›æ–¹æ³•ï¼Œéå†æ‰€æœ‰æ•°ç»„
+     */
+    public static int minBrute(int[] numbers){
+        if(numbers == null || numbers.length == 0){
+            throw new RuntimeException("Invalid input.");
+        }
+        int len = numbers.length - 1;
+        for(int i = 1 ;i <=len - 1; i++){
+            if(numbers[i] < numbers[i - 1]){
+                return numbers[i];
+            }
+        }
+        return numbers[0];
+    }
+    /**
+     * 2.æ”¹è¿›ï¼ŒäºŒåˆ†æœç´¢
+     * å‡ºäº†ä¸€ä¸ªå¾ˆä¸¥é‡çš„é”™è¯¯ï¼Œæ²¡æœ‰è€ƒè™‘lo mid hi ä¸‰è€…éƒ½ç›¸åŒçš„æƒ…å†µï¼›
+     */
+    public static int min(int[] nums){
+        if(nums == null || nums.length == 0){
+            throw new RuntimeException("Invalid input.");
+        }
+        int lo = 0;
+        int hi = nums.length - 1;
+        if(nums[lo] < nums[hi]){
+            return nums[lo];
+        }
+        int mid = (lo + hi) / 2;
+        while(lo < hi && lo != hi - 1 ){
+            if(nums[mid] == nums[lo] && nums[mid]== nums[hi]){
+                return minInorder(nums, lo, hi);
+            }
+            else if(nums[mid] <= nums[hi]){
+                hi = mid;
+            }
+            else if(nums[mid] >= nums[lo]){
+                lo = mid;
+            }
+            mid = (lo + hi) / 2;
+            // è¿™ç§midçš„å†™æ³•ä¸å¥½
+
+        }
+        return nums[hi];
+    }
+
+
+
 
     /**
-     * °ÑÒ»¸öÊı×é×î¿ªÊ¼µÄÈô¸É¸öÔªËØ°áµ½Êı×éµÄÄ©Î²£¬ ÎÒÃÇ³ÆÖ®Êı×éµÄĞı×ª¡£
-     * ÊäÈëÒ»¸öµİÔöÅÅĞòµÄÊı×éµÄÒ»¸öĞı×ª£¬Êä³öĞı×ªÊı×éµÄ×îĞ¡ÔªËØ¡£
-     * ÀıÈçÊı×é{3, 4, 5, 1, 2£ıÎª£ûl ,2, 3, 4, 5}µÄÒ»¸öĞı×ª£¬¸ÃÊı×éµÄ×îĞ¡ÖµÎª
+     * æŠŠä¸€ä¸ªæ•°ç»„æœ€å¼€å§‹çš„è‹¥å¹²ä¸ªå…ƒç´ æ¬åˆ°æ•°ç»„çš„æœ«å°¾ï¼Œ æˆ‘ä»¬ç§°ä¹‹æ•°ç»„çš„æ—‹è½¬ã€‚
+     * è¾“å…¥ä¸€ä¸ªé€’å¢æ’åºçš„æ•°ç»„çš„ä¸€ä¸ªæ—‹è½¬ï¼Œè¾“å‡ºæ—‹è½¬æ•°ç»„çš„æœ€å°å…ƒç´ ã€‚
+     * ä¾‹å¦‚æ•°ç»„{3, 4, 5, 1, 2ï½ä¸ºï½›l ,2, 3, 4, 5}çš„ä¸€ä¸ªæ—‹è½¬ï¼Œè¯¥æ•°ç»„çš„æœ€å°å€¼ä¸º
      *
-     * @param numbers Ğı×ªÊı×é
-     * @return Êı×éµÄ×îĞ¡Öµ
+     * @param numbers æ—‹è½¬æ•°ç»„
+     * @return æ•°ç»„çš„æœ€å°å€¼
      */
-    public static int min(int[] numbers) {
-        // ÅĞ¶ÏÊäÈëÊÇ·ñºÏ·¨
+    public static int minorignal(int[] numbers) {
+        // åˆ¤æ–­è¾“å…¥æ˜¯å¦åˆæ³•
         if (numbers == null || numbers.length == 0) {
             throw new RuntimeException("Invalid input.");
         }
 
-        // ¿ªÊ¼´¦ÀíµÄµÚÒ»¸öÎ»ÖÃ
+        // å¼€å§‹å¤„ç†çš„ç¬¬ä¸€ä¸ªä½ç½®
         int lo = 0;
-        // ¿ªÊ¼´¦ÀíµÄ×îºóÒ»¸öÎ»ÖÃ
+        // å¼€å§‹å¤„ç†çš„æœ€åä¸€ä¸ªä½ç½®
         int hi = numbers.length - 1;
-        // ÉèÖÃ³õÊ¼Öµ
+        // è®¾ç½®åˆå§‹å€¼
         int mi = lo;
 
-        // È·±£loÔÚÇ°Ò»¸öÅÅºÃĞòµÄ²¿·Ö£¬hiÔÚÅÅºÃĞòµÄºóÒ»¸ö²¿·Ö
+        // ç¡®ä¿loåœ¨å‰ä¸€ä¸ªæ’å¥½åºçš„éƒ¨åˆ†ï¼Œhiåœ¨æ’å¥½åºçš„åä¸€ä¸ªéƒ¨åˆ†
         while (numbers[lo] >= numbers[hi]) {
-            // µ±´¦Àí·¶Î§Ö»ÓĞÁ½¸öÊı¾İÊ±£¬·µ»ØºóÒ»¸ö½á¹û
-            // ÒòÎªnumbers[lo] >= numbers[hi]×ÜÊÇ³ÉÁ¢£¬ºóÒ»¸ö½á¹û¶ÔÓ¦µÄÊÇ×îĞ¡µÄÖµ
+            // å½“å¤„ç†èŒƒå›´åªæœ‰ä¸¤ä¸ªæ•°æ®æ—¶ï¼Œè¿”å›åä¸€ä¸ªç»“æœ
+            // å› ä¸ºnumbers[lo] >= numbers[hi]æ€»æ˜¯æˆç«‹ï¼Œåä¸€ä¸ªç»“æœå¯¹åº”çš„æ˜¯æœ€å°çš„å€¼
             if (hi - lo == 1) {
                 return numbers[hi];
             }
 
-            // È¡ÖĞ¼äµÄÎ»ÖÃ
+            // å–ä¸­é—´çš„ä½ç½®
             mi = lo + (hi - lo) / 2;
 
-            // Èç¹ûÈı¸öÊı¶¼ÏàµÈ£¬ÔòĞèÒª½øĞĞË³Ğò´¦Àí£¬´ÓÍ·µ½Î²ÕÒ×îĞ¡µÄÖµ
+            // å¦‚æœä¸‰ä¸ªæ•°éƒ½ç›¸ç­‰ï¼Œåˆ™éœ€è¦è¿›è¡Œé¡ºåºå¤„ç†ï¼Œä»å¤´åˆ°å°¾æ‰¾æœ€å°çš„å€¼
             if (numbers[mi] == numbers[lo] && numbers[hi] == numbers[mi]) {
                 return minInorder(numbers, lo, hi);
             }
 
-            // Èç¹ûÖĞ¼äÎ»ÖÃ¶ÔÓ¦µÄÖµÔÚÇ°Ò»¸öÅÅºÃĞòµÄ²¿·Ö£¬½«loÉèÖÃÎªĞÂµÄ´¦ÀíÎ»ÖÃ
+            // å¦‚æœä¸­é—´ä½ç½®å¯¹åº”çš„å€¼åœ¨å‰ä¸€ä¸ªæ’å¥½åºçš„éƒ¨åˆ†ï¼Œå°†loè®¾ç½®ä¸ºæ–°çš„å¤„ç†ä½ç½®
             if (numbers[mi] >= numbers[lo]) {
                 lo = mi;
             }
-            // Èç¹ûÖĞ¼äÎ»ÖÃ¶ÔÓ¦µÄÖµÔÚºóÒ»¸öÅÅºÃĞòµÄ²¿·Ö£¬½«hiÉèÖÃÎªĞÂµÄ´¦ÀíÎ»ÖÃ
+            // å¦‚æœä¸­é—´ä½ç½®å¯¹åº”çš„å€¼åœ¨åä¸€ä¸ªæ’å¥½åºçš„éƒ¨åˆ†ï¼Œå°†hiè®¾ç½®ä¸ºæ–°çš„å¤„ç†ä½ç½®
             else if (numbers[mi] <= numbers[hi]) {
                 hi = mi;
             }
         }
 
-        // ·µ»Ø×îÖÕµÄ´¦Àí½á¹û
+        // è¿”å›æœ€ç»ˆçš„å¤„ç†ç»“æœ
         return numbers[mi];
     }
 
     /**
-     * ÕÒÊı×éÖĞµÄ×îĞ¡Öµ
+     * æ‰¾æ•°ç»„ä¸­çš„æœ€å°å€¼
      *
-     * @param numbers Êı×é
-     * @param start   Êı×éµÄÆğÊ¼Î»ÖÃ
-     * @param end     Êı×éµÄ½áÊøÎ»ÖÃ
-     * @return ÕÒµ½µÄ×îĞ¡µÄÊı
+     * @param numbers æ•°ç»„
+     * @param start   æ•°ç»„çš„èµ·å§‹ä½ç½®
+     * @param end     æ•°ç»„çš„ç»“æŸä½ç½®
+     * @return æ‰¾åˆ°çš„æœ€å°çš„æ•°
      */
     public static int minInorder(int[] numbers, int start, int end) {
         int result = numbers[start];
@@ -77,36 +125,38 @@ public class Test08 {
 
 
     public static void main(String[] args) {
-        // µäĞÍÊäÈë£¬µ¥µ÷ÉıĞòµÄÊı×éµÄÒ»¸öĞı×ª
+        // å…¸å‹è¾“å…¥ï¼Œå•è°ƒå‡åºçš„æ•°ç»„çš„ä¸€ä¸ªæ—‹è½¬
         int[] array1 = {3, 4, 5, 1, 2};
         System.out.println(min(array1));
 
-        // ÓĞÖØ¸´Êı×Ö£¬²¢ÇÒÖØ¸´µÄÊı×Ö¸ÕºÃµÄ×îĞ¡µÄÊı×Ö
+        // æœ‰é‡å¤æ•°å­—ï¼Œå¹¶ä¸”é‡å¤çš„æ•°å­—åˆšå¥½çš„æœ€å°çš„æ•°å­—
         int[] array2 = {3, 4, 5, 1, 1, 2};
         System.out.println(min(array2));
 
-        // ÓĞÖØ¸´Êı×Ö£¬µ«ÖØ¸´µÄÊı×Ö²»ÊÇµÚÒ»¸öÊı×ÖºÍ×îºóÒ»¸öÊı×Ö
+        // æœ‰é‡å¤æ•°å­—ï¼Œä½†é‡å¤çš„æ•°å­—ä¸æ˜¯ç¬¬ä¸€ä¸ªæ•°å­—å’Œæœ€åä¸€ä¸ªæ•°å­—
         int[] array3 = {3, 4, 5, 1, 2, 2};
         System.out.println(min(array3));
 
-        // ÓĞÖØ¸´µÄÊı×Ö£¬²¢ÇÒÖØ¸´µÄÊı×Ö¸ÕºÃÊÇµÚÒ»¸öÊı×ÖºÍ×îºóÒ»¸öÊı×Ö
+        // æœ‰é‡å¤çš„æ•°å­—ï¼Œå¹¶ä¸”é‡å¤çš„æ•°å­—åˆšå¥½æ˜¯ç¬¬ä¸€ä¸ªæ•°å­—å’Œæœ€åä¸€ä¸ªæ•°å­—
         int[] array4 = {1, 0, 1, 1, 1};
         System.out.println(min(array4));
+        int[] array8 = {1,1, 1, 0, 1};
+        System.out.println(min(array8));
 
-        // µ¥µ÷ÉıĞòÊı×é£¬Ğı×ª0¸öÔªËØ£¬Ò²¾ÍÊÇµ¥µ÷ÉıĞòÊı×é±¾Éí
+        // å•è°ƒå‡åºæ•°ç»„ï¼Œæ—‹è½¬0ä¸ªå…ƒç´ ï¼Œä¹Ÿå°±æ˜¯å•è°ƒå‡åºæ•°ç»„æœ¬èº«
         int[] array5 = {1, 2, 3, 4, 5};
         System.out.println(min(array5));
 
-        // Êı×éÖĞÖ»ÓĞÒ»¸öÊı×Ö
+        // æ•°ç»„ä¸­åªæœ‰ä¸€ä¸ªæ•°å­—
         int[] array6 = {2};
         System.out.println(min(array6));
 
-        // Êı×éÖĞÊı×Ö¶¼ÏàÍ¬
+        // æ•°ç»„ä¸­æ•°å­—éƒ½ç›¸åŒ
         int[] array7 = {1, 1, 1, 1, 1, 1, 1};
         System.out.println(min(array7));
         System.out.println(min(array6));
 
-        // ÊäÈëNULL
+        // è¾“å…¥NULL
         System.out.println(min(null));
 
 

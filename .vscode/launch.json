@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Test10",
+            "request": "launch",
+            "mainClass": "Test10",
+            "projectName": "coding-interviews_ca2822a0"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Test09",
+            "request": "launch",
+            "mainClass": "Test09",
+            "projectName": "coding-interviews_ca2822a0"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Test08",
+            "request": "launch",
+            "mainClass": "Test08",
+            "projectName": "coding-interviews_ca2822a0"
+        }
+    ]
+}

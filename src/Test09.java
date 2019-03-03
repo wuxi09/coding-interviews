@@ -27,7 +27,7 @@ public class Test09 {
         long prePre = 1;
         // 记录前两个（第n-1个）的Fibonacci数的值
         long pre = 1;
-        // 记录前两个（第n个）的Fibonacci数的值
+        // 记录前两个（第n个）的Fibonacci数的和
         long current = 2;
 
         // 求解第n个的Fibonacci数的值

@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Test12",
+            "request": "launch",
+            "mainClass": "Test12",
+            "projectName": "coding-interviews_ca2822a0"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Test10",
             "request": "launch",
             "mainClass": "Test10",
